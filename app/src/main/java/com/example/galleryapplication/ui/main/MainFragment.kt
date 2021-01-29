@@ -236,5 +236,8 @@ class MainFragment : Fragment() {
         }
     }
 
+    //TODO update recyclerView on image download
+
+
 
 }
