@@ -2,16 +2,15 @@ package com.example.galleryapplication.ui.main
 
 import android.content.pm.PackageManager
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.example.galleryapplication.MainActivity
-import com.example.galleryapplication.R
+import com.example.galleryapplication.ImagesGallery
 import com.example.galleryapplication.adapter.GalleryAdapter
 import com.example.galleryapplication.databinding.FragmentMainBinding
 
@@ -19,7 +18,7 @@ class MainFragment : Fragment() {
 
     lateinit var recyclerView: RecyclerView
     lateinit var galleryAdapter: GalleryAdapter
-    val images = mutableListOf<String>()
+    var images = mutableListOf<String>()
 
     val READ_PERMISSION_CODE = 101
 
@@ -27,11 +26,13 @@ class MainFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         // Inflate the layout for this fragment
 
         val binding = FragmentMainBinding.inflate(inflater)
+
+        recyclerView = binding.recyclerViewGalleryImages
 
 
         if (ContextCompat.checkSelfPermission(
@@ -57,6 +58,13 @@ class MainFragment : Fragment() {
     }
 
     fun loadImages(){
+        recyclerView.setHasFixedSize(true)
+        images = ImagesGallery.listOfImages(requireContext())
+
+        galleryAdapter = GalleryAdapter(requireContext(), images, GalleryAdapter.OnClickListener{
+            Toast.makeText(requireContext(), "CLICKED", Toast.LENGTH_SHORT).show()
+        })
+        recyclerView.adapter = galleryAdapter
 
     }
 
