@@ -11,14 +11,16 @@ import java.util.*
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
+    private val context = application.applicationContext
+
     private val _images = MutableLiveData<List<Image>>()
 
     val images: LiveData<List<Image>>
         get() = _images
 
-    private val _navigateToSelectedImage = MutableLiveData<String>()
+    private val _navigateToSelectedImage = MutableLiveData<String?>()
 
-    val navigateToSelectedImage: LiveData<String>
+    val navigateToSelectedImage: LiveData<String?>
         get() = _navigateToSelectedImage
 
 
