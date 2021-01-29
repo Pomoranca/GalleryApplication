@@ -7,11 +7,19 @@
 
     <fragment
         android:id="@+id/imageFragment"
-        android:name="com.example.galleryapplication.ui.Image.ImageFragment"
+        android:name="com.example.galleryapplication.ui.image.ImageFragment"
         android:label="fragment_image"
-        tools:layout="@layout/fragment_image" />
+        tools:layout="@layout/fragment_image" >
+        <argument
+            android:name="image"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.galleryapplication.ui.main.MainFragment"
-        android:label="MainFragment" />
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_imageFragment4"
+            app:destination="@id/imageFragment" />
+    </fragment>
 </navigation>
