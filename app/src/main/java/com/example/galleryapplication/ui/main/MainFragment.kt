@@ -27,6 +27,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.Coil
@@ -48,7 +49,7 @@ class MainFragment : Fragment() {
 
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
 
-    val viewModel by lazy {
+    private val viewModel by lazy {
         ViewModelProvider(this).get(MainViewModel::class.java)
     }
 
@@ -62,6 +63,8 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+
 
         val binding = FragmentMainBinding.inflate(inflater)
 
@@ -92,16 +95,15 @@ class MainFragment : Fragment() {
 
         setPermissionCallback()
 
-        viewModel.images.observe(viewLifecycleOwner, { images ->
-            if (images != null) {
-                galleryAdapter =
-                    GalleryAdapter(requireContext(), images, GalleryAdapter.OnClickListener {
-                        viewModel.displayImage(it)
-                    })
-                binding.recyclerViewGalleryImages.adapter = galleryAdapter
-                galleryAdapter.notifyDataSetChanged()
-            }
-        })
+        viewModel.images.observe(viewLifecycleOwner) { images ->
+            galleryAdapter =
+                GalleryAdapter(requireContext(), images, GalleryAdapter.OnClickListener {
+                    viewModel.displayImage(it)
+                })
+            binding.recyclerViewGalleryImages.adapter = galleryAdapter
+            galleryAdapter.notifyDataSetChanged()
+        }
+
 
         recyclerView = binding.recyclerViewGalleryImages
 
@@ -121,14 +123,14 @@ class MainFragment : Fragment() {
             viewModel.listImages(requireContext())
         }
 
-        viewModel.navigateToSelectedImage.observe(viewLifecycleOwner, {
+        viewModel.navigateToSelectedImage.observe(viewLifecycleOwner) {
             if (it != null) {
                 this.findNavController()
                     .navigate(MainFragmentDirections.actionMainFragmentToImageFragment4(it))
                 viewModel.displayImageCompleted()
 
             }
-        })
+        }
 
 
         return binding.root

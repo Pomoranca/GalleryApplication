@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -9,13 +10,61 @@
             type="com.example.galleryapplication.ui.image.ImageViewModel" />
     </data>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-       />
+            android:adjustViewBounds="true" />
+
+        <Button
+            android:id="@+id/button_applyNegative"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Negative"
+            app:layout_constraintBottom_toBottomOf="@+id/button_applyGrayscale"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/button_applyGrayscale"
+            app:layout_constraintTop_toTopOf="@+id/button_applyGrayscale" />
+
+        <Button
+            android:id="@+id/button_applyGrayscale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:text="Grayscale"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toStartOf="@+id/button_applyNegative"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/button_histogram"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="Histogram"
+            app:layout_constraintBottom_toTopOf="@+id/button_applyGrayscale"
+            app:layout_constraintEnd_toEndOf="@+id/button_applyNegative"
+            app:layout_constraintStart_toStartOf="@+id/button_applyGrayscale" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:visibility="gone"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </layout>

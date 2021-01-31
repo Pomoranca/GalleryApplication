@@ -13,6 +13,9 @@
         <argument
             android:name="image"
             app:argType="string" />
+        <action
+            android:id="@+id/action_imageFragment_to_histogramFragment"
+            app:destination="@id/histogramFragment" />
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
@@ -22,4 +25,9 @@
             android:id="@+id/action_mainFragment_to_imageFragment4"
             app:destination="@id/imageFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/histogramFragment"
+        android:name="com.example.galleryapplication.ui.image.HistogramFragment"
+        android:label="fragment_histogram"
+        tools:layout="@layout/fragment_histogram" />
 </navigation>
